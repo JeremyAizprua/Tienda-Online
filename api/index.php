@@ -84,7 +84,7 @@ if ($categoriaSeleccionada) {
             justify-content: center; /* Centrar horizontalmente */
             align-items: center; /* Centrar verticalmente */
             margin: auto auto auto auto; /* Centrarse respecto al contenedor principal */
-            width: 81%;
+            width: 99%;
         }
 
         section img {

@@ -42,6 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_pedido'])) {
     <title>Pedidos Recibidos</title>
     <!-- Materialize CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
     body {
         background-color: #f9f9f9; /* Color de fondo */
@@ -139,9 +141,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_pedido'])) {
             <div class="card">
                 <div class="card-content">
                     <span class="card-title">Pedido #<?php echo $pedido['id_pedido']; ?></span>
-                    <p><strong>Total:</strong> $<?php echo number_format($pedido['total'], 2); ?></p>
-                    <p><strong>Teléfono:</strong> <?php echo htmlspecialchars($pedido['telefono']); ?></p>
-                    <p><strong>Correo:</strong> <?php echo htmlspecialchars($pedido['correo']); ?></p>
+                    <p><i class="material-icons tiny">date_range</i> <strong>Fecha:</strong> <?php echo htmlspecialchars($pedido['fecha_pedido']); ?></p>
+                    <p><i class="material-icons tiny">attach_money</i> <strong>Total:</strong> $<?php echo htmlspecialchars($pedido['total']); ?></p>
+                    <p><i class="material-icons tiny">phone</i> <strong>Teléfono:</strong> <?php echo htmlspecialchars($pedido['telefono']); ?></p>
+                    <p><i class="material-icons tiny">email</i> <strong>Correo:</strong> <?php echo htmlspecialchars($pedido['correo']); ?></p>
+                    <p><i class="material-icons tiny">info</i> <strong>Estado:</strong> <?php echo (strtolower($pedido['estado']) === 'completado') ? 'Procesado' : htmlspecialchars($pedido['estado']); ?></p>
                     <h5>Detalles del Pedido:</h5>
                     <div class="row">
                         <?php foreach ($detalles as $producto): ?>
@@ -183,9 +187,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_pedido'])) {
             <div class="card">
                 <div class="card-content">
                     <span class="card-title">Pedido #<?php echo $pedido['id_pedido']; ?></span>
-                    <p><strong>Total:</strong> $<?php echo number_format($pedido['total'], 2); ?></p>
-                    <p><strong>Teléfono:</strong> <?php echo htmlspecialchars($pedido['telefono']); ?></p>
-                    <p><strong>Correo:</strong> <?php echo htmlspecialchars($pedido['correo']); ?></p>
+                    <p><i class="material-icons tiny">date_range</i> <strong>Fecha:</strong> <?php echo htmlspecialchars($pedido['fecha_pedido']); ?></p>
+                    <p><i class="material-icons tiny">attach_money</i> <strong>Total:</strong> $<?php echo htmlspecialchars($pedido['total']); ?></p>
+                    <p><i class="material-icons tiny">phone</i> <strong>Teléfono:</strong> <?php echo htmlspecialchars($pedido['telefono']); ?></p>
+                    <p><i class="material-icons tiny">email</i> <strong>Correo:</strong> <?php echo htmlspecialchars($pedido['correo']); ?></p>
+                    <p><i class="material-icons tiny">info</i> <strong>Estado:</strong> <?php echo (strtolower($pedido['estado']) === 'completado') ? 'Procesado' : htmlspecialchars($pedido['estado']); ?></p>
                     <h5>Detalles del Pedido:</h5>
                     <div class="row">
                         <?php foreach ($detalles as $producto): ?>

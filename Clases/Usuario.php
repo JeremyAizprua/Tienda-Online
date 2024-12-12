@@ -20,7 +20,10 @@ class Usuario {
             throw new Exception("Error al ejecutar la consulta: " . $stmt->error);
         }
 
+        $id_usuario = $stmt->insert_id;
         $stmt->close();
+
+        return $id_usuario;
     }
 
     public function autenticarUsuario($correo, $contrasena) {

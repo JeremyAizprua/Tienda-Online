@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,17 +63,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         body {
             background-image: url('https://wallpapers.com/images/hd/anime-collage-1920-x-1080-wallpaper-fwx8xyvh2rd4ju8n.jpg');
             background-color: #000;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             font-family: 'Montserrat', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            padding: 10px;
+            padding: 20px;
             color: #fff;
         }
         .login-container {
-            background-color: #1a1a1a;
+            background-color: rgba(26, 26, 26, 0.9);
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
@@ -86,11 +89,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             text-align: center;
             margin-bottom: 20px;
         }
-        .login-container .error {
-            color: red;
-            font-size: 14px;
+        .error-message {
+            background-color: rgba(255, 0, 0, 0.1);
+            border: 1px solid #ff0000;
+            color: #ff0000;
+            padding: 10px;
+            border-radius: 5px;
             margin-bottom: 15px;
             text-align: center;
+            font-size: 14px;
         }
         .input-field label {
             color: #fff !important;
@@ -136,6 +143,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="login-container">
         <h3 class="center-align">Iniciar Sesión</h3>
+        <?php if (isset($error)): ?>
+            <div class="error-message">
+                <?php echo htmlspecialchars($error); ?>
+            </div>
+        <?php endif; ?>
         <form action="login.php" method="POST" class="col s12">
             <div class="input-field">
                 <i class="material-icons prefix">email</i>
@@ -148,12 +160,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="contrasena">Contraseña</label>
             </div>
             <button type="submit" class="btn waves-effect waves-light">Iniciar Sesión</button>
-            <?php if (isset($error)): ?>
-                <p class="error"><?php echo $error; ?></p>
-            <?php endif; ?>
         </form>
         <p>¿No tienes una cuenta? <a href="Registro.php">Registrarse</a></p>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
+

@@ -1,20 +1,20 @@
 <?php
 session_start();
 require_once('../Conexion/Conexion.php');
-require_once('../Clases/Pedido.php'); // Asegúrate de incluir la clase Pedidos
+require_once('../Clases/Pedido.php');
 
 $database = new Conexion();
 $db = $database->obtenerConexion();
 $pedidos = new Pedido($db);
 
 // Verifica si el usuario ha iniciado sesión
-if (!isset($_SESSION['usuario'])) {
+if (!isset($_SESSION['usuario']) || !isset($_SESSION['id_usuario'])) {
     header('Location: login.php');
     exit;
 }
 
 // Obtén el historial de pedidos del usuario
-$id_usuario = $_SESSION['id_usuario']; // Asegúrate de tener el ID del usuario en la sesión
+$id_usuario = $_SESSION['id_usuario'];
 // Obtener el orden actual, predeterminado a "asc"
 $orden = isset($_GET['orden']) ? $_GET['orden'] : 'asc';
 $historialPedidos = $pedidos->obtenerHistorialPorUsuario($id_usuario, $orden);
@@ -27,96 +27,136 @@ $nuevoOrden = ($orden === 'asc') ? 'desc' : 'asc';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil</title>
-    <!-- Materialize CSS -->
+    <title>Perfil de Usuario</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         body {
-            background-color: #f9f9f9; /* Color de fondo */
+            background-color: #f5f5f5;
+            color: #333;
+            font-family: 'Roboto', sans-serif;
+        }
+        .navbar-fixed {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         nav {
-            background-color: #7C3AED; /* Color del nav */
-            height: 85px;
+            background-color: #c859ca;
         }
-        nav a {
-            color: white; /* Color del texto del nav */
+        nav .brand-logo {
+            font-weight: bold;
+            padding-left: 15px;
         }
-        h1 {
-            color: #7C3AED; /* Color del título */
-            text-align: center; /* Centrar el título */
+        .user-info {
+            background-color: #c859ca;
+            color: white;
+            padding: 20px 0;
             margin-bottom: 30px;
         }
-        ul {
-            list-style-type: none; /* Eliminar puntos de la lista */
-            padding: 0; /* Eliminar padding */
-            text-align: center; /* Centrar texto */
+        .user-info h4 {
+            margin: 0;
+            font-weight: 300;
         }
-        li {
-            margin: 10px 0; /* Margen entre los enlaces */
+        .user-actions {
+            margin-top: 20px;
         }
-        a {
-            color: #7C3AED; /* Color de los enlaces */
-            text-decoration: none; /* Sin subrayado */
-            font-weight: bold; /* Texto en negrita */
+        .user-actions a {
+            margin: 5px;
         }
-        a:hover {
-            color: black; /* Cambiar color al pasar el ratón */
+        h2 {
+            color: #c859ca;
+            font-weight: 300;
+            margin-bottom: 30px;
         }
         .card {
-            height: 400px;
-            border-radius: 10px;
-            overflow-y: auto; /* Habilitar scroll vertical si el contenido excede la altura */
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .card .card-content {
+            padding: 20px;
+        }
+        .card-title {
+            font-weight: bold;
+            color: #c859ca;
         }
         .estado-pendiente {
-            background-color: #FFDDDD; /* Color de fondo para estado pendiente (rojo claro) */
+            border-left: 5px solid #FFA000;
         }
         .estado-completo {
-            background-color: #DDFFDD; /* Color de fondo para estado completo (verde claro) */
+            border-left: 5px solid #4CAF50;
         }
         .pedido-detalle {
-            margin-top: 20px;
+            margin-top: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
         }
         .detalle-imagen {
             max-width: 100%;
             height: auto;
+            border-radius: 4px;
         }
-        .btn{
-            background: #7C3AED;
+        .btn {
+            background-color: #c859ca;
+            margin-right: 10px;
+        }
+        .btn:hover {
+            background-color: #6D28D9;
+        }
+        .btn-flat {
+            color: #7C3AED;
+        }
+        @media only screen and (max-width: 992px) {
+            nav .brand-logo {
+                left: 50%;
+                transform: translateX(-50%);
+            }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="container">
-            <a href="Index.php" class="brand-logo">Mi Tienda</a>
-        </div>
-    </nav>
-
-    <div class="container">
-        <h1>Bienvenido, <?php echo htmlspecialchars($_SESSION['usuario']); ?>!</h1>
+    <div class="navbar-fixed">
         <nav>
-            <ul>
-                <li><a href="Index.php">Ir a la Tienda</a></li>
-                <li><a href="logout.php">Cerrar Sesión</a></li>
-                <?php if ($isAdmin): ?>
-                    <li><a href="pedidos.php">Ver Pedidos Recibidos</a></li>
-                    <li><a href="gestionar_productos.php">Gestionar Productos</a></li>
-                <?php endif; ?>
-            </ul>
+            <div class="nav-wrapper">
+                <a href="Index.php" class="brand-logo">Mi Tienda</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href=".Index.php">Inicio</a></li>
+                    <li><a href="logout.php">Cerrar Sesión</a></li>
+                </ul>
+            </div>
         </nav>
     </div>
 
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="Index.php">Inicio</a></li>
+        <li><a href="logout.php">Cerrar Sesión</a></li>
+    </ul>
+
+    <div class="user-info">
+        <div class="container">
+            <h4 class="center-align">Bienvenido, <?php echo htmlspecialchars($_SESSION['usuario']); ?>!</h4>
+            <div class="user-actions center-align">
+                <a href="Index.php" class="btn waves-effect waves-light">Ir a la Tienda</a>
+                <?php if ($isAdmin): ?>
+                    <a href="pedidos.php" class="btn waves-effect waves-light">Ver Pedidos Recibidos</a>
+                    <a href="gestionar_productos.php" class="btn waves-effect waves-light">Gestionar Productos</a>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
-        <h2>Historial de Pedidos</h2>
+        <h2 class="center-align">Historial de Pedidos</h2>
         <div class="row">
-            <!-- Botón de filtrado único -->
             <div class="col s12">
                 <div class="right-align">
-                    <a href="?orden=<?php echo $nuevoOrden; ?>" class="btn">
+                    <a href="?orden=<?php echo $nuevoOrden; ?>" class="btn waves-effect waves-light">
+                        <i class="material-icons left">sort</i>
                         Fecha <?php echo ($orden === 'asc') ? 'Descendente' : 'Ascendente'; ?>
                     </a>
                 </div>
@@ -132,31 +172,33 @@ $nuevoOrden = ($orden === 'asc') ? 'desc' : 'asc';
                     </div>
                 </div>
             <?php else: ?>
-                <?php $pedidoCounter = 1; ?>
-                <?php foreach ($historialPedidos as $pedido): ?>  
-                    <div class="col s12 m6 l4">
+                <?php foreach ($historialPedidos as $index => $pedido): ?>  
+                    <div class="col s12 m6">
                         <div class="card <?php echo (strtolower($pedido['estado']) === 'pendiente') ? 'estado-pendiente' : 'estado-completo'; ?>">
                             <div class="card-content">
-                                <span class="card-title">Pedido #<?php echo $pedidoCounter++; ?></span>
-                                <p><strong>Fecha:</strong> <?php echo htmlspecialchars($pedido['fecha_pedido']); ?></p>
-                                <p><strong>Total:</strong> $<?php echo htmlspecialchars($pedido['total']); ?></p>
-                                <p><strong>Teléfono:</strong> <?php echo htmlspecialchars($pedido['telefono']); ?></p>
-                                <p><strong>Correo:</strong> <?php echo htmlspecialchars($pedido['correo']); ?></p>
-                                <p><strong>Estado:</strong> <?php echo (strtolower($pedido['estado']) === 'completado') ? 'Procesado' : htmlspecialchars($pedido['estado']); ?></p>
-                                <h5>Detalles del Pedido</h5>
+                                <span class="card-title">Pedido #<?php echo $index + 1; ?></span>
+                                <p><i class="material-icons tiny">date_range</i> <strong>Fecha:</strong> <?php echo htmlspecialchars($pedido['fecha_pedido']); ?></p>
+                                <p><i class="material-icons tiny">attach_money</i> <strong>Total:</strong> $<?php echo htmlspecialchars($pedido['total']); ?></p>
+                                <p><i class="material-icons tiny">phone</i> <strong>Teléfono:</strong> <?php echo htmlspecialchars($pedido['telefono']); ?></p>
+                                <p><i class="material-icons tiny">email</i> <strong>Correo:</strong> <?php echo htmlspecialchars($pedido['correo']); ?></p>
+                                <p><i class="material-icons tiny">info</i> <strong>Estado:</strong> <?php echo (strtolower($pedido['estado']) === 'completado') ? 'Procesado' : htmlspecialchars($pedido['estado']); ?></p>
+                                <div class="card-action">
+                                    <a class="btn-flat activator">Ver Detalles</a>
+                                </div>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Detalles del Pedido<i class="material-icons right">close</i></span>
                                 <?php 
                                 $detalles = json_decode($pedido['detalles'], true); 
                                 if (!empty($detalles)): 
                                     foreach ($detalles as $detalle): 
                                 ?>
-                                    <div class="card pedido-detalle">
-                                        <div class="card-content">
-                                            <span class="card-title"><?php echo htmlspecialchars($detalle['nombre']); ?></span>
-                                            <p><strong>Precio:</strong> $<?php echo htmlspecialchars($detalle['precio']); ?></p>
-                                            <p><strong>Cantidad:</strong> <?php echo htmlspecialchars($detalle['cantidad']); ?></p>
-                                            <img src="<?php echo htmlspecialchars($detalle['imagen']); ?>" alt="<?php echo htmlspecialchars($detalle['nombre']); ?>" class="detalle-imagen">
-                                            <p><strong>Descripción:</strong> <?php echo htmlspecialchars($detalle['descripcion']); ?></p>
-                                        </div>
+                                    <div class="pedido-detalle">
+                                        <h6><?php echo htmlspecialchars($detalle['nombre']); ?></h6>
+                                        <p><strong>Precio:</strong> $<?php echo htmlspecialchars($detalle['precio']); ?></p>
+                                        <p><strong>Cantidad:</strong> <?php echo htmlspecialchars($detalle['cantidad']); ?></p>
+                                        <img src="<?php echo htmlspecialchars($detalle['imagen']); ?>" alt="<?php echo htmlspecialchars($detalle['nombre']); ?>" class="detalle-imagen">
+                                        <p><strong>Descripción:</strong> <?php echo htmlspecialchars($detalle['descripcion']); ?></p>
                                     </div>
                                 <?php endforeach; ?>
                                 <?php else: ?>
@@ -170,7 +212,13 @@ $nuevoOrden = ($orden === 'asc') ? 'desc' : 'asc';
         </div>
     </div>
 
-    <!-- Materialize JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems);
+        });
+    </script>
 </body>
 </html>
+

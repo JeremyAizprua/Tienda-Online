@@ -10,33 +10,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $correo = sanitizarEntrada($_POST['correo']);
     $contrasena = $_POST['contrasena'];
     $contrasena_confirmacion = $_POST['contrasena_confirmacion'];
-    $numero = $_POST['numero'];
+    $numero = sanitizarEntrada($_POST['numero']);
     
-
     if ($contrasena !== $contrasena_confirmacion) {
-        echo "Error: Las contraseñas no coinciden.";
-        exit;
-    }
+        $error = "Las contraseñas no coinciden.";
+    } else {
+        $contrasena = Seguridad::encriptarContrasena($contrasena);
 
-    $contrasena = Seguridad::encriptarContrasena($contrasena);
+        try {
+            $conexion = (new Conexion())->obtenerConexion();
+            $usuario = new Usuario($conexion);
 
-    try {
-        $conexion = (new Conexion())->obtenerConexion();
-        $usuario = new Usuario($conexion);
+            $id_usuario = $usuario->registrarUsuario($nombre, $correo, $contrasena, $numero);
 
-        $usuario->registrarUsuario($nombre, $correo, $contrasena, $numero);
-
-        $_SESSION['usuario'] = $nombre;
-        header('Location: perfil.php');
-        exit;
-    } catch (Exception $e) {
-        echo "Error: " . $e->getMessage();
+            if ($id_usuario) {
+                $_SESSION['usuario'] = $nombre;
+                $_SESSION['id_usuario'] = $id_usuario;
+                header('Location: perfil.php');
+                exit;
+            } else {
+                $error = "Error al registrar el usuario.";
+            }
+        } catch (Exception $e) {
+            $error = "Ha ocurrido un error: el correo que intenta utilizar ya ha sido utilizado" ;
+        }
     }
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,14 +53,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            padding: 10px;
+            padding: 20px;
             background-color: #000000;
             color: #ffffff;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
         .container {
-            background-color: #1a1a1a;
+            background-color: rgba(26, 26, 26, 0.9);
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
@@ -101,6 +107,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: #7C3AED;
             font-weight: bold;
         }
+        .error-message {
+            color: #ff3333;
+            text-align: center;
+            margin-bottom: 15px;
+            background-color: rgba(255, 51, 51, 0.1);
+            border: 1px solid #ff3333;
+            border-radius: 5px;
+            padding: 10px;
+        }
         @media screen and (max-width: 600px) {
             .container {
                 padding: 20px;
@@ -114,6 +129,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="container">
         <h3 class="center-align">Registro</h3>
+        <?php if (isset($error)): ?>
+            <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
+        <?php endif; ?>
         <form action="registro.php" method="POST" class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">person</i>
@@ -137,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="input-field col s12">
                 <i class="material-icons prefix">phone</i>
-                <input type="text" name="numero" id="numero" required>
+                <input type="tel" name="numero" id="numero" required>
                 <label for="numero">Número de contacto</label>
             </div>
             <div class="col s12">
