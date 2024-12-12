@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once('Conexion/Conexion.php');
-require_once('Clases/Productos.php');
-require_once('Clases/Categoria.php');
+require_once('../Conexion/Conexion.php');
+require_once('../Clases/Productos.php');
+require_once('../Clases/Categoria.php');
 
 $database = new Conexion();
 $db = $database->obtenerConexion();

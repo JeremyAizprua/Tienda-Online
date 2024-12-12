@@ -2,9 +2,9 @@
 
 session_start(); // Inicia la sesión
 
-require_once('Conexion/Conexion.php');
-require_once('Clases/Productos.php');
-require_once('Clases/Categoria.php');
+require_once('../Conexion/Conexion.php');
+require_once('../Clases/Productos.php');
+require_once('../Clases/Categoria.php');
 
 // Crear conexión a la base de datos
 $database = new Conexion();

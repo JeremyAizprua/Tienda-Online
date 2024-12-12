@@ -7,10 +7,10 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['isAdmin'])) {
     exit;
 }
 
-require_once('Conexion/Conexion.php'); // Include database connection
+require_once('../Conexion/Conexion.php'); // Include database connection
 require_once 'funciones.php'; // Include any necessary functions
-require_once 'Clases/Productos.php'; // Include the Productos class
-require_once 'Clases/Categoria.php'; // Include the Categoria class
+require_once '../Clases/Productos.php'; // Include the Productos class
+require_once '../Clases/Categoria.php'; // Include the Categoria class
 
 // Fetch categories from the database
 $categorias = [];

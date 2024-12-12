@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once('Conexion/Conexion.php');
-require_once('Clases/Pedido.php'); // Asegúrate de incluir la clase Pedidos
+require_once('../Conexion/Conexion.php');
+require_once('../Clases/Pedido.php'); // Asegúrate de incluir la clase Pedidos
 
 $database = new Conexion();
 $db = $database->obtenerConexion();

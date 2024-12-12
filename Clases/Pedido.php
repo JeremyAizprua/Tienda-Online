@@ -1,5 +1,5 @@
 <?php
-require_once('Conexion/Conexion.php');
+require_once('../Conexion/Conexion.php');
 class Pedido {
     private $conexion;
 

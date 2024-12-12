@@ -1,5 +1,5 @@
 <?php
-require_once('Conexion/Conexion.php');
+require_once('../Conexion/Conexion.php');
 if (session_status() === PHP_SESSION_NONE) {
     session_start(); // Esto se puede omitir si ya está en Conexion.php
 }

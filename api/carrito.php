@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('Conexion/Conexion.php');
+require_once('../Conexion/Conexion.php');
 
 // Conexión a la base de datos
 $database = new Conexion();

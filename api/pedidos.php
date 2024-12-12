@@ -9,8 +9,7 @@ if (!isset($_SESSION['usuario'])) {
 
 // Supongamos que tienes un valor en $_SESSION que indica si el usuario es admin
 $isAdmin = isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true;
-
-require_once('Conexion/Conexion.php');
+require_once('../Conexion/Conexion.php');
 
 // Conectar a la base de datos
 $conexion = (new Conexion())->obtenerConexion();

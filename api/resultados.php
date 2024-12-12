@@ -1,30 +1,34 @@
 <?php
-require_once('Conexion/Conexion.php');
-require_once 'Clases/Productos.php';
-
-// Crear conexión a la base de datos
+require_once('../Conexion/Conexion.php');
 $database = new Conexion();
 $db = $database->obtenerConexion();
-$productosModel = new Productos($db);
 
-// Verificar si se recibió una categoría
-$categoriaId = isset($_GET['categoria']) ? intval($_GET['categoria']) : null;
+// Inicializa la variable de búsqueda
+$terminoBusqueda = isset($_GET['buscar']) ? $_GET['buscar'] : '';
 
-if ($categoriaId) {
-    $productos = $productosModel->obtenerProductosPorCategoria($categoriaId);
-    $nombreCategoria = $productosModel->obtenerNombreCategoria($categoriaId); // Método para obtener nombre
-} else {
-    echo "No se especificó ninguna categoría.";
-    exit; // Termina la ejecución si no hay categoría
+// Prepara la consulta para buscar productos que coincidan con el término de búsqueda
+$query = "SELECT * FROM productos WHERE nombre_producto LIKE ?";
+$stmt = $db->prepare($query);
+$terminoBusquedaParam = "%$terminoBusqueda%";
+$stmt->bind_param("s", $terminoBusquedaParam);
+$stmt->execute();
+$resultado = $stmt->get_result();
+
+// Inicializa el array de productos
+$productos = [];
+
+// Si hay resultados, los almacena en el array
+while ($producto = $resultado->fetch_assoc()) {
+    $productos[] = $producto;
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos por Categoría</title>
+    <title>Resultados de Búsqueda</title>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -35,15 +39,11 @@ if ($categoriaId) {
             margin: 20px; /* Espaciado */
             transition: color 0.3s; /* Transición para hover */
         }
-        h1 {
-            text-align: center;
-            color: #7C3AED;
-            margin-top: 20px;
-        }
 
         .volver-icon:hover {
             color: #6A1B9A; /* Color al pasar el mouse */
         }
+
         .card {
             height: 530px; /* Altura fija para las cards */
             width: 350px;  /* Ancho fijo para las cards */
@@ -124,15 +124,15 @@ if ($categoriaId) {
 <?php include 'header.php'; ?> <!-- Incluir el archivo header.php -->
 
 <div class="container">
-    <h1>Categoría: <?php echo htmlspecialchars($nombreCategoria); ?></h1>
     <!-- Ícono de volver -->
     <a href="javascript:history.back()" class="volver-icon">
         <i class="fas fa-arrow-left"></i>
     </a>
+
     <div class="row">
-        <?php foreach ($productos as $producto): ?>
-            <div class="col s12 m4">
-            <div class="card">
+        <?php foreach ($productos as $index => $producto): ?>
+            <div class="col s12 m4"> <!-- Cambiar para usar m4 para 3 columnas -->
+                <div class="card">
                     <div class="card-image">
                         <img src="<?php echo $producto['imagen_producto']; ?>" alt="<?php echo htmlspecialchars($producto['nombre_producto']); ?>">
                     </div>
@@ -146,6 +146,9 @@ if ($categoriaId) {
                     </div>
                 </div>
             </div>
+            <?php if (($index + 1) % 3 === 0): ?>
+                </div><div class="row"> <!-- Cerrar y abrir fila cada 3 productos -->
+            <?php endif; ?>
         <?php endforeach; ?>
     </div>
 </div>
