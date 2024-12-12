@@ -46,14 +46,14 @@ $nuevoOrden = ($orden === 'asc') ? 'desc' : 'asc';
             z-index: 1000;
         }
         nav {
-            background-color: #c859ca;
+            background-color: #e3a3e5;
         }
         nav .brand-logo {
             font-weight: bold;
             padding-left: 15px;
         }
         .user-info {
-            background-color: #c859ca;
+            background-color: #e3a3e5;
             color: white;
             padding: 20px 0;
             margin-bottom: 30px;
@@ -69,7 +69,7 @@ $nuevoOrden = ($orden === 'asc') ? 'desc' : 'asc';
             margin: 5px;
         }
         h2 {
-            color: #c859ca;
+            color: #e3a3e5;
             font-weight: 300;
             margin-bottom: 30px;
         }
@@ -82,7 +82,7 @@ $nuevoOrden = ($orden === 'asc') ? 'desc' : 'asc';
         }
         .card-title {
             font-weight: bold;
-            color: #c859ca;
+            color: #e3a3e5;
         }
         .estado-pendiente {
             border-left: 5px solid #FFA000;
@@ -101,14 +101,14 @@ $nuevoOrden = ($orden === 'asc') ? 'desc' : 'asc';
             border-radius: 4px;
         }
         .btn {
-            background-color: #c859ca;
+            background-color: #e3a3e5;
             margin-right: 10px;
         }
         .btn:hover {
-            background-color: #6D28D9;
+            background-color: #e582e7;
         }
         .btn-flat {
-            color: #7C3AED;
+            color: #e582e7;
         }
         @media only screen and (max-width: 992px) {
             nav .brand-logo {
@@ -122,7 +122,7 @@ $nuevoOrden = ($orden === 'asc') ? 'desc' : 'asc';
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper">
-                <a href="Index.php" class="brand-logo">Mi Tienda</a>
+                <a href="Index.php" class="brand-logo">Chérie Studio</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href=".Index.php">Inicio</a></li>

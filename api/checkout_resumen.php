@@ -18,7 +18,7 @@ $total = 0;
         ></script>
     <style>
         body {
-            background-color: #f4f4f4;
+            background-color: #eed2ef;
             color: #000;
             display: flex;
             justify-content: center; /* Centrar horizontalmente */
@@ -43,11 +43,11 @@ $total = 0;
         }
 
         .btn {
-            background-color: #7C3AED !important;
+            background-color: #e582e7 !important;
         }
 
         .btn:hover {
-            background-color: #5c29a8 !important;
+            background-color: #e3a3e5 !important;
         }
 
         .volver-btn {
@@ -59,7 +59,7 @@ $total = 0;
             flex-direction: row;
             align-items: center;
             margin-bottom: 20px;
-            border: 2px solid #7C3AED;
+            border: 2px solid #e582e7;
             border-radius: 10px;
             background-color: #fff;
             padding: 15px;
@@ -78,13 +78,13 @@ $total = 0;
         }
 
         .card-horizontal .card-title {
-            color: #7C3AED;
+            color: #e582e7;
             font-weight: bold;
             margin-bottom: 10px;
         }
 
         h5 {
-            color: #7C3AED;
+            color: #e582e7;
             font-size: 1.8rem;
             text-align: center;
         }
@@ -242,3 +242,4 @@ $total = 0;
 </script>
 </body>
 </html>
+

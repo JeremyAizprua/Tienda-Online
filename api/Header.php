@@ -48,7 +48,7 @@ $cantidadTotal = array_sum(array_column($_SESSION['carrito'], 'cantidad'));
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda online</title>
+    <title>Chérie Studio</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -71,7 +71,7 @@ $cantidadTotal = array_sum(array_column($_SESSION['carrito'], 'cantidad'));
     </div>
     <div class="main-header">
         <div class="container">
-            <div class="logo">Tienda Online</div>
+            <div class="logo">Chérie Studio</div>
             <div class="search-bar">
                 <form action="resultados.php" method="GET"> <!-- Modificado para enviar datos a resultados.php -->
                     <input type="text" name="buscar" placeholder="Buscar..." required>

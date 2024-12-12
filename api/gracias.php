@@ -34,7 +34,7 @@ session_start();
         }
 
         h1 {
-            color: #7C3AED;
+            color: #e582e7;
             font-size: 2.5rem;
             margin-bottom: 20px;
         }
@@ -46,11 +46,11 @@ session_start();
 
         .btn {
             margin-top: 20px;
-            background-color: #7C3AED !important;
+            background-color: #e582e7 !important;
         }
 
         .btn:hover {
-            background-color: #5c29a8 !important;
+            background-color: #e3a3e5 !important;
         }
     </style>
 </head>

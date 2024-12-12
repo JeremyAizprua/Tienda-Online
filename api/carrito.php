@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
     body {
-        background-color: #f4f4f4;
+        background-color: #eed2ef;
         color: #000;
     }
     .comtainer{
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     .btn {
-        background-color: #7C3AED !important;
+        background-color: #e582e7 !important;
         font-size: x-large;
         margin-top: 20px;
         padding: 5px 11px;
@@ -64,20 +64,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     .btn:hover {
-        background-color: #5c29a8 !important;
+        background-color: #e582e7 !important;
     }
 
     .volver-icono {
         display: inline-block;
         margin: 10px;
-        color: #7C3AED;
+        color: #e3a3e5;
         font-size: 1.8rem;
         text-decoration: none;
         transition: color 0.3s;
     }
 
     .volver-icono:hover {
-        color: #5c29a8;
+        color: #e582e7;
     }
 
         .card-horizontal {
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         flex-direction: row;
         align-items: center;
         margin-bottom: 20px;
-        border: 2px solid #7C3AED;
+        border: 2px solid #e3a3e5;
         border-radius: 10px;
         background-color: #fff;
         padding: 15px;
@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     .card-horizontal .card-title {
-        color: #7C3AED;
+        color: #e3a3e5;
         font-weight: bold;
         margin-bottom: 10px;
     }
@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     h5 {
-        color: #7C3AED;
+        color: black;
         font-size: 1.8rem;
     }
 

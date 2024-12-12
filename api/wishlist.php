@@ -40,7 +40,7 @@ $stmt->close();
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #eed2ef;
         }
         .container {
             max-width: 1200px;
@@ -57,6 +57,7 @@ $stmt->close();
             gap: 20px;
         }
         .wishlist-item {
+            border: 2px solid #e582e7;
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -76,7 +77,7 @@ $stmt->close();
         }
         .wishlist-item-price {
             font-weight: bold;
-            color: #7C3AED;
+            color: black;
         }
         .wishlist-item-actions {
             display: flex;
@@ -98,25 +99,25 @@ $stmt->close();
             background-color: #ff3333;
         }
         .btn-cart {
-            background-color: #7C3AED;
+            background-color: #e582e7;
             color: white;
         }
         .btn-cart:hover {
-            background-color: #6A1B9A;
+            background-color: #e3a3e5;
         }
 
 
         .volver-icono {
             display: inline-block;
             margin: 10px;
-            color: #7C3AED;
+            color: #e3a3e5;
             font-size: 1.8rem;
             text-decoration: none;
             transition: color 0.3s;
         }
 
         .volver-icono:hover {
-            color: #5c29a8;
+            color: #e582e7;
         }
     </style>
 </head>
