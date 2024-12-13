@@ -1,4 +1,5 @@
 <?php
+session_start(); // Inicia la sesión
 require_once('../Conexion/Conexion.php');
 require_once '../Clases/Productos.php';
 
@@ -12,45 +13,65 @@ $categoriaId = isset($_GET['categoria']) ? intval($_GET['categoria']) : null;
 
 if ($categoriaId) {
     $productos = $productosModel->obtenerProductosPorCategoria($categoriaId);
-    $nombreCategoria = $productosModel->obtenerNombreCategoria($categoriaId); // Método para obtener nombre
+    $nombreCategoria = $productosModel->obtenerNombreCategoria($categoriaId);
 } else {
     echo "No se especificó ninguna categoría.";
-    exit; // Termina la ejecución si no hay categoría
+    exit;
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"><meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos por Categoría</title>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        .volver-icon {
-            color: #7C3AED; /* Color del icono */
-            font-size: 24px; /* Tamaño del icono */
-            margin: 20px; /* Espaciado */
-            transition: color 0.3s; /* Transición para hover */
+        body, html {
+            background-color: #eed2ef;
+            height: 100%;
+            margin: 0;
         }
-        h1 {
-            text-align: center;
-            color: #7C3AED;
-            margin-top: 20px;
+
+        .volver-icon {
+            color: #e3a3e5;
+            font-size: 24px;
+            margin: 20px;
+            transition: color 0.3s;
         }
 
         .volver-icon:hover {
-            color: #6A1B9A; /* Color al pasar el mouse */
+            color: #e582e7;
         }
+
+        .container3 {
+            max-width: 100%;
+            padding: 0 15px;
+            margin: auto;
+        }
+        
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: -10px;
+        }
+
+        .col {
+            flex: 0 0 100%;
+            max-width: 100%;
+            padding: 10px;
+        }
+
         .card {
-            height: 530px; /* Altura fija para las cards */
-            width: 350px;  /* Ancho fijo para las cards */
-            border: 2px solid #7C3AED;
+            height: 530px;
+            width: 100%;
+            border: 2px solid #e582e7;
             border-radius: 15px;
             overflow: hidden;
-            margin: 10px;  /* Espaciado entre cards */
+            margin-top: 10px;
             background-color: #fff;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s ease;
@@ -61,8 +82,8 @@ if ($categoriaId) {
         }
 
         .card-image img {
-            height: 260px;
-            width: 100%; /* Asegura que la imagen ocupe el ancho completo */
+            height: 275px;
+            width: 100%;
             object-fit: cover;
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
@@ -74,10 +95,11 @@ if ($categoriaId) {
         }
 
         .card-content {
-            padding: 30px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: stretch;
+            text-align: center;
         }
 
         .card-title {
@@ -86,63 +108,218 @@ if ($categoriaId) {
             color: #333;
         }
 
+        .card-actions {
+            display: flex;
+            margin: -2%;
+            flex-direction: column-reverse;
+            flex-wrap: nowrap;
+            align-items: stretch;
+        }
+
         .add-to-cart {
-            background-color: #7C3AED;
-            color: white;
+            background-color: #e582e7;
             border: none;
-            border-radius: 5px;
+            color: black;
+            border-radius: 0px 0px 5px 5px;
             padding: 10px 15px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
 
         .add-to-cart:hover {
-            background-color: #6A1B9A;
+            background-color: #e3a3e5;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: auto;
+        .add-to-wishlist {
+            background-color: white;
+            color: black;
+            border: 2px solid black;
+            border-radius: 5px 5px 0px 0px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .add-to-wishlist:hover {
+            background-color: #b2eeeb;
+        }
+
+        .view-details {
+            text-align: center;
+            background-color: #f0f0f0;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .view-details:hover {
+            background-color: #e0e0e0;
+        }
+
+        .ojo {
+            display: flex;
+            margin: -2%;
+            flex-direction: column-reverse;
+            flex-wrap: nowrap;
+            align-items: stretch;
+        }
+
+        h1 {
+            text-align: center;
+            color: black;
+            margin-top: 20px;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            background-color: #fefefe;
+            margin: 15% auto;
             padding: 20px;
+            border: 2px solid #e582e7;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
         }
 
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center; /* Centra las tarjetas en la fila */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
         }
 
-        .col {
-            flex: 0 0 33.33%; /* Tres columnas (33.33% cada una) */
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #product-detail-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        #product-detail-title {
+            font-size: 24px;
+            margin-top: 15px;
+        }
+
+        #product-detail-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: black;
+            margin-top: 10px;
+        }
+
+        #product-detail-description {
+            margin-top: 15px;
+        }
+
+        #modal-add-to-cart {
             display: flex;
-            justify-content: center; /* Centra las tarjetas en la columna */
-            padding: 10px;
+            justify-content: center;
+            background-color: #e582e7;
+            border: none;
+            color: black;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #modal-add-to-cart:hover {
+            background-color: #e3a3e5;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 575px) {
+            .col {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+            .card {
+                height: 100%;
+            }
+            .card-content {
+                padding: 10px;
+            }
+            .card-title {
+                font-size: 1em;
+            }
+            .card-image img {
+                height: 80px;
+            }
+        }
+
+        @media (min-width: 576px) and (max-width: 991px) {
+            .col {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .col {
+                flex: 0 0 25%;
+                max-width: 25%;
+            }
         }
     </style>
 </head>
 <body>
-<?php include 'header.php'; ?> <!-- Incluir el archivo header.php -->
+<?php include 'header.php'; ?>
 
-<div class="container">
+<div class="container3">
     <h1>Categoría: <?php echo htmlspecialchars($nombreCategoria); ?></h1>
-    <!-- Ícono de volver -->
     <a href="javascript:history.back()" class="volver-icon">
         <i class="fas fa-arrow-left"></i>
     </a>
+
     <div class="row">
         <?php foreach ($productos as $producto): ?>
             <div class="col s12 m4">
-            <div class="card">
+                <div class="card">
                     <div class="card-image">
                         <img src="<?php echo $producto['imagen_producto']; ?>" alt="<?php echo htmlspecialchars($producto['nombre_producto']); ?>">
+                        <div class="ojo">
+                            <a href="#" class="view-details" title="Ver detalles" data-id="<?php echo $producto['id_producto']; ?>">
+                                <i class="fas fa-eye"></i> Ver más
+                            </a>
+                        </div>
                     </div>
                     <div class="card-content">
                         <span class="card-title"><?php echo htmlspecialchars($producto['nombre_producto']); ?></span>
-                        <p><?php echo htmlspecialchars($producto['descripcion']); ?></p><br>
                         <p><?php echo htmlspecialchars($producto['precio']); ?></p><br>
-                        <button class="add-to-cart" title="Añadir al carrito" onclick="agregarAlCarrito(<?php echo $producto['id_producto']; ?>)">
-                            <i class="fas fa-shopping-cart"></i>
-                        </button>
+                        <div class="card-actions">
+                            <button class="add-to-cart" title="Añadir al carrito" onclick="agregarAlCarrito(<?php echo $producto['id_producto']; ?>)">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                            <button class="add-to-wishlist" title="Añadir a la lista de deseos" onclick="agregarAListaDeseos(<?php echo $producto['id_producto']; ?>)">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -150,16 +327,64 @@ if ($categoriaId) {
     </div>
 </div>
 
-<!-- Materialize JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<!-- Modal for product details -->
+<div id="product-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <img id="product-detail-image" src="" alt="Product Image">
+        <h2 id="product-detail-title"></h2>
+        <p id="product-detail-price"></p>
+        <p id="product-detail-description"></p>
+        <button id="modal-add-to-cart">
+            <i class="fas fa-shopping-cart"></i>
+        </button>
+    </div>
+</div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
+    var modal = document.getElementById("product-modal");
+    var span = document.getElementsByClassName("close")[0];
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    function showProductDetails(productId) {
+        fetch(`get_product_details.php?id=${productId}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("product-detail-image").src = data.imagen_producto;
+                document.getElementById("product-detail-title").textContent = data.nombre_producto;
+                document.getElementById("product-detail-price").textContent = `Precio: $${data.precio}`;
+                document.getElementById("product-detail-description").textContent = data.descripcion;
+                document.getElementById("modal-add-to-cart").onclick = function() {
+                    agregarAlCarrito(data.id_producto);
+                };
+                modal.style.display = "block";
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    document.querySelectorAll('.view-details').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const productId = e.currentTarget.getAttribute('data-id');
+            showProductDetails(productId);
+        });
+    });
+
     function agregarAlCarrito(idProducto) {
         fetch('agregar_al_carrito.php?id=' + idProducto)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Actualiza el contador del carrito
                     document.querySelector('.cart-count').innerText = data.cantidad;
                     alert('Producto añadido al carrito!');
                 } else {
@@ -168,6 +393,20 @@ if ($categoriaId) {
             })
             .catch(error => console.error('Error:', error));
     }
+
+    function agregarAListaDeseos(idProducto) {
+        fetch('agregar_a_lista_deseos.php?id=' + idProducto)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Producto añadido a la lista de deseos');
+                } else {
+                    alert('Error al añadir a la lista de deseos');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
 </script>
 </body>
 </html>
+

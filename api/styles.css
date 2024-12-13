@@ -168,11 +168,41 @@ nav ul li a:hover {
 
     .search-bar input {
         width: 100%; /* Ocupa todo el espacio disponible */
-        margin-right: 5px; /* Agrega un pequeño margen entre el input y el botón */
+        margin-right: 4px; /* Agrega un pequeño margen entre el input y el botón */
     }
 
     .search-bar button {
         width: auto; /* Evita que el botón ocupe demasiado espacio */
+        margin-left: -48px;
+    }
+
+    .header-icons {
+        justify-content: space-between;
+        width: 100%;
+    }
+}
+/* Estilos responsivos */
+@media (max-width: 773px) {
+    .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .search-bar {
+        margin: 10px 0;
+        width: 100%;
+        display: flex; /* Asegura que el input y el botón estén alineados */
+        flex-direction: row; /* Asegura que estén uno al lado del otro */
+    }
+
+    .search-bar input {
+        width: 100%; /* Ocupa todo el espacio disponible */
+        margin-right: 4px; /* Agrega un pequeño margen entre el input y el botón */
+    }
+
+    .search-bar button {
+        width: auto; /* Evita que el botón ocupe demasiado espacio */
+        margin-left: -48px;
     }
 
     .header-icons {

@@ -206,67 +206,67 @@ if ($categoriaSeleccionada) {
 
         /* Responsive breakpoints */
         @media (max-width: 575px) {
-        .col {
-            flex: 0 0 50%;
-            max-width: 50%;
-        }
-        .card {
-            height: 100%;
-        }
-        .card-content {
-            padding: 10px;
-        }
-        .card-title {
-            font-size: 1em;
-        }
-
-        .card-image img {
-                height: 80px;
-                width: 100%; /* Asegura que la imagen ocupe el ancho completo */
-                border-top-left-radius: 15px;
-                border-top-right-radius: 15px;
-                transition: transform 0.3s ease;
-        }
-    }
-
-    @media (min-width: 576px) and (max-width: 991px) {
             .col {
                 flex: 0 0 50%;
                 max-width: 50%;
             }
+            .card {
+                height: 100%;
+            }
+            .card-content {
+                padding: 10px;
+            }
+            .card-title {
+                font-size: 1em;
+            }
+
+            .card-image img {
+                    height: 80px;
+                    width: 100%; /* Asegura que la imagen ocupe el ancho completo */
+                    border-top-left-radius: 15px;
+                    border-top-right-radius: 15px;
+                    transition: transform 0.3s ease;
+            }
         }
 
-        @media (min-width: 992px) {
-            .col {
-                flex: 0 0 25%;
-                max-width: 25%;
+        @media (min-width: 576px) and (max-width: 991px) {
+                .col {
+                    flex: 0 0 50%;
+                    max-width: 50%;
+                }
             }
-    }
-/* Responsive: para pantallas más pequeñas */
-@media (max-width: 768px) {
-    nav ul {
-        flex-direction: column; /* Cambia a columna en pantallas pequeñas */
-        align-items: center; /* Centra los elementos en la dirección vertical */
-    }
 
-    nav li {
-        margin: 5px 0; /* Reduce el margen entre elementos */
-    }
-}
+            @media (min-width: 992px) {
+                .col {
+                    flex: 0 0 25%;
+                    max-width: 25%;
+                }
+        }
+        /* Responsive: para pantallas más pequeñas */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+                align-items: center; /* Centra los elementos en la dirección vertical */
+            }
 
-@media (max-width: 576px) {
-    nav a {
-        font-size: 14px; /* Ajusta el tamaño del texto en dispositivos más pequeños */
-    }
-}
-.card-link {
-    text-decoration: none;
-    color: inherit;
-}
+            nav li {
+                margin: 5px 0; /* Reduce el margen entre elementos */
+            }
+        }
 
-.card-link:hover {
-    text-decoration: none;
-}
+        @media (max-width: 576px) {
+            nav a {
+                font-size: 14px; /* Ajusta el tamaño del texto en dispositivos más pequeños */
+            }
+        }
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .card-link:hover {
+            text-decoration: none;
+        }
         .card-actions {
             display: flex;
             margin: -2%;
@@ -275,14 +275,13 @@ if ($categoriaSeleccionada) {
             align-items: stretch;
         }
         .add-to-wishlist {
-            border-solid: 10px black;
             background-color: white;
-            color: white;
             color: black;
+            border: 2px solid black;
             border-radius: 5px 5px 0px 0px;
             padding: 10px 15px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, border-color 0.3s;
         }
         .add-to-wishlist:hover {
             background-color: #b2eeeb;
@@ -332,7 +331,7 @@ if ($categoriaSeleccionada) {
             background-color: #fefefe;
             margin: 15% auto;
             padding: 20px;
-            border: 1px solid #888;
+            border: 2px solid #e582e7;
             width: 80%;
             max-width: 600px;
             border-radius: 10px;
