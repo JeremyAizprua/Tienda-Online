@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['isAdmin'] = (bool)$usuario['es_admin'];
             $_SESSION['telefono'] = $usuario['numero'];
 
-            header('Location: perfil.php'); // Redirigir a perfil
+            header('Location: index.php'); // Redirigir a perfil
             exit;
         } else {
             $error = "Correo o contraseña incorrectos.";
@@ -156,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="input-field">
                 <i class="material-icons prefix">lock</i>
-                <input type="password" name="contrasena" id="contrasena" required>
+                <input min=8 type="password" name="contrasena" id="contrasena" required>
                 <label for="contrasena">Contraseña</label>
             </div>
             <button type="submit" class="btn waves-effect waves-light">Iniciar Sesión</button>

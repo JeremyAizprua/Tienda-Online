@@ -61,6 +61,7 @@ $nuevoOrden = ($orden === 'asc') ? 'desc' : 'asc';
         .user-info h4 {
             margin: 0;
             font-weight: 300;
+            color: black;
         }
         .user-actions {
             margin-top: 20px;
@@ -111,9 +112,18 @@ $nuevoOrden = ($orden === 'asc') ? 'desc' : 'asc';
             color: #e582e7;
         }
         @media only screen and (max-width: 992px) {
+            nav {
+                padding: 0 10px;
+            }
+            
             nav .brand-logo {
-                left: 50%;
-                transform: translateX(-50%);
+                font-size: 1.5rem;
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+            nav .brand-logo {
+                font-size: 1.3rem;
             }
         }
     </style>

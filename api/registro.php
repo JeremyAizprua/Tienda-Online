@@ -145,12 +145,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="input-field col s12">
                 <i class="material-icons prefix">lock</i>
-                <input type="password" name="contrasena" id="contrasena" required>
+                <input min=8 type="password" name="contrasena" id="contrasena" required>
                 <label for="contrasena">Contraseña</label>
             </div>
             <div class="input-field col s12">
                 <i class="material-icons prefix">lock</i>
-                <input type="password" name="contrasena_confirmacion" id="contrasena_confirmacion" required>
+                <input min=8 type="password" name="contrasena_confirmacion" id="contrasena_confirmacion" required>
                 <label for="contrasena_confirmacion">Confirmar Contraseña</label>
             </div>
             <div class="input-field col s12">
