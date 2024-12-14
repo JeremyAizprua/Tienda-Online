@@ -125,7 +125,7 @@ $nuevoOrden = ($orden === 'asc') ? 'desc' : 'asc';
                 <a href="Index.php" class="brand-logo">Chérie Studio</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href=".Index.php">Inicio</a></li>
+                    <li><a href="Index.php">Inicio</a></li>
                     <li><a href="logout.php">Cerrar Sesión</a></li>
                 </ul>
             </div>

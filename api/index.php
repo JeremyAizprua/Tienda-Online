@@ -204,28 +204,42 @@ if ($categoriaSeleccionada) {
             transition: transform 0.2s ease;
         }
 
-        /* Responsive breakpoints */
         @media (max-width: 575px) {
             .col {
                 flex: 0 0 50%;
                 max-width: 50%;
             }
             .card {
-                height: 100%;
+                height: auto;
+                display: flex;
+                flex-direction: column;
             }
             .card-content {
-                padding: 10px;
+                display: none;
             }
-            .card-title {
-                font-size: 1em;
+            .card-image {
+                position: relative;
             }
-
             .card-image img {
-                    height: 80px;
-                    width: 100%; /* Asegura que la imagen ocupe el ancho completo */
-                    border-top-left-radius: 15px;
-                    border-top-right-radius: 15px;
-                    transition: transform 0.3s ease;
+                height: 150px;
+                width: 100%;
+                object-fit: cover;
+            }
+            .view-details {
+                background-color: #f0f0f0;
+                color: black;
+                border: none;
+                border-radius: 0 0 13px 13px;
+                padding: 10px 15px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                text-decoration: none;
+                display: block;
+                text-align: center;
+                margin-top: 0;
+            }
+            .view-details:hover {
+                background-color: #e0e0e0;
             }
         }
 
@@ -312,7 +326,6 @@ if ($categoriaSeleccionada) {
         }
          /* Add new styles for the modal */
         .modal {
-            
             border: 2px solid #e582e7;
             display: none;
             position: fixed;
@@ -374,12 +387,10 @@ if ($categoriaSeleccionada) {
         }
 
         #modal-add-to-cart {
-            display: flex;
-            justify-content: center;
             background-color: #e582e7;
             border: none;
             color: black;
-            border-radius: 5px;
+            border-radius: 0px 0px 5px 5px;
             padding: 10px 15px;
             cursor: pointer;
             transition: background-color 0.3s;
@@ -387,6 +398,20 @@ if ($categoriaSeleccionada) {
 
         #modal-add-to-cart:hover {
             background-color: #e3a3e5;
+        }
+        #modal-add-to-wishlist {
+            background-color: white;
+            color: black;
+            border: 2px solid black;
+            border-radius: 5px 5px 0px 0px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        #modal-add-to-wishlist:hover {
+            background-color: #b2eeeb;
+            border-color: #b2eeeb;
         }
     </style>
 </head>
@@ -451,16 +476,19 @@ if ($categoriaSeleccionada) {
 
 <!-- Modal for product details -->
 <div id="product-modal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <img id="product-detail-image" src="" alt="Product Image">
-        <h2 id="product-detail-title"></h2>
-        <p id="product-detail-price"></p>
-        <p id="product-detail-description"></p>
-        <button id="modal-add-to-cart">
-            <i class="fas fa-shopping-cart"></i>
-        </button>
-    </div>
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="product-detail-image" src="" alt="Product Image">
+            <h2 id="product-detail-title"></h2>
+            <p id="product-detail-price"></p>
+            <p id="product-detail-description"></p>
+            <button id="modal-add-to-wishlist">
+                <i class="fas fa-heart"></i>
+            </button>
+            <button id="modal-add-to-cart">
+                <i class="fas fa-shopping-cart"></i>
+            </button>
+        </div>
 </div>
 
 <!-- Materialize JS -->

@@ -154,31 +154,27 @@ nav ul li a:hover {
 
 /* Estilos responsivos */
 @media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        align-items: flex-start;
+    .top-banner {
+        font-size: 12px;
+        padding: 8px 0;
+    }
+
+    .logo {
+        font-size: 18px;
     }
 
     .search-bar {
-        margin: 10px 0;
-        width: 100%;
-        display: flex; /* Asegura que el input y el botón estén alineados */
-        flex-direction: row; /* Asegura que estén uno al lado del otro */
+        margin: 10px auto; /* Changed from 10px 0 to 10px auto for centering */
     }
 
     .search-bar input {
-        width: 100%; /* Ocupa todo el espacio disponible */
-        margin-right: 4px; /* Agrega un pequeño margen entre el input y el botón */
+        width: calc(100% - 64px); /* Adjusted to account for button width */
+        max-width: 200px; /* Limit the width of the input */
     }
 
     .search-bar button {
-        width: auto; /* Evita que el botón ocupe demasiado espacio */
-        margin-left: -48px;
-    }
-
-    .header-icons {
-        justify-content: space-between;
-        width: 100%;
+        width: 60px; /* Fixed width for consistency */
+        margin-top: 0;
     }
 }
 /* Estilos responsivos */
@@ -222,15 +218,19 @@ nav ul li a:hover {
     }
 
     .search-bar {
-        flex-direction: row; /* Mantén input y botón alineados en una fila */
+        flex-direction: row;
+        justify-content: center; 
+        align-items: center; 
+        width: 100%; 
     }
 
     .search-bar input {
-        width: calc(100% - 60px); /* Ajusta el tamaño del input para acomodar el botón */
+        width: calc(100% - 21px);
+        max-width: 200px;
     }
 
     .search-bar button {
-        width: 60px; /* Define un tamaño fijo para el botón */
-        margin-top: 0; /* Asegura que esté alineado con el input */
+        width: 60px;
+        margin-top: 0;
     }
 }
