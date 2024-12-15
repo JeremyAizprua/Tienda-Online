@@ -1,11 +1,684 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<!-- saved from url=(0046)http://localhost/Tienda%20online/api/Index.php -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+    <title>Chérie Studio - Productos</title>  
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="./index_files/all.min.css">
+    
+    <style>
+        body, html {
+            background-color: #eed2ef;
+            height: 100%;
+            margin: 0;
+        }
+
+        .wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%; /* Hace que el contenedor ocupe toda la ventana */
+        }
+        nav {
+            background: transparent; /* Hacer el fondo del nav transparente */
+            padding: 10px 0; /* Espaciado interno */
+            border: none; /* Eliminar bordes */
+            box-shadow: none; /* Eliminar sombra */
+        }
+        nav a {
+            color: #e3a3e5; /* Color de los enlaces */
+            text-decoration: none; /* Sin subrayado */
+            font-weight: bold; /* Texto en negrita */
+        }
+        section {
+            background-color: #f0f0f0f0;
+            border-radius: 15px;
+            border: 2px solid #e582e7;
+            display: flex;
+            overflow: hidden;
+            justify-content: center; /* Centrar horizontalmente */
+            align-items: center; /* Centrar verticalmente */
+            margin: auto auto auto auto; /* Centrarse respecto al contenedor principal */
+            width: 99%;
+        }
+
+        section img {
+            width: 210px; /* Ancho de la imagen */
+            height: 250px;
+            object-fit: cover; /* Ajustar imagen */
+            opacity: .8;
+            transition: 0.5s ease; /* Transición suave */
+        }
+
+        section img:hover {
+            cursor: pointer; /* Cambiar cursor al pasar sobre la imagen */
+            width: 400px;
+            opacity: 1; /* Cambiar opacidad al pasar el cursor */
+            filter: contrast(120%); /* Mejorar contraste */
+        }
+        
+        section .carousel {
+            
+            display: flex; /* Usar flexbox para apilar las imágenes horizontalmente */
+            animation: slide 10s linear infinite; /* Animación para el desplazamiento */
+        }
+        @keyframes slide {
+            0% {
+                transform: translateX(100%); /* Comienza fuera de la pantalla a la derecha */
+            }
+            25% {
+                transform: translateX(0); /* Llega al centro */
+            }
+            75% {
+                transform: translateX(0); /* Mantiene el centro */
+            }
+            100% {
+                transform: translateX(-100%); /* Sale de la pantalla a la izquierda */
+            }
+        }
+
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-image img {
+            height: 275px;
+            width: 100%; /* Asegura que la imagen ocupe el ancho completo */
+            object-fit: cover;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .card-image:hover img {
+            transform: scale(1.1);
+        }
+
+        .card-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            text-align: center;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .add-to-cart {
+            background-color: #e582e7;
+            border: none;
+            color: black;
+            border-radius: 0px 0px 5px 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: #e3a3e5;
+        }
+
+        .container2 {
+            max-width: 60%;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        .container3 {
+            max-width: 100%;
+            padding: 0 15px;
+            margin: auto;
+        }
+        
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: -10px; /* Negative margin to counteract padding on cols */
+        }
+
+
+        .col {
+            flex: 0 0 100%;
+            max-width: 100%;
+            padding: 10px;
+        }
+        .card {
+            height: 530px; /* Allow height to adjust based on content */
+            width: 100%;
+            border: 2px solid #e582e7;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 10px;  /* Espaciado entre cards */
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        @media (max-width: 575px) {
+            .col {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+            .card {
+                height: auto;
+                display: flex;
+                flex-direction: column;
+            }
+            .card-content {
+                display: none;
+            }
+            .card-image {
+                position: relative;
+            }
+            .card-image img {
+                height: 150px;
+                width: 100%;
+                object-fit: cover;
+            }
+            .view-details {
+                background-color: #f0f0f0;
+                color: black;
+                border: none;
+                border-radius: 0 0 13px 13px;
+                padding: 10px 15px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                text-decoration: none;
+                display: block;
+                text-align: center;
+                margin-top: 0;
+            }
+            .view-details:hover {
+                background-color: #e0e0e0;
+            }
+        }
+
+        @media (min-width: 576px) and (max-width: 991px) {
+                .col {
+                    flex: 0 0 50%;
+                    max-width: 50%;
+                }
+            }
+
+            @media (min-width: 992px) {
+                .col {
+                    flex: 0 0 25%;
+                    max-width: 25%;
+                }
+        }
+        /* Responsive: para pantallas más pequeñas */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+                align-items: center; /* Centra los elementos en la dirección vertical */
+            }
+
+            nav li {
+                margin: 5px 0; /* Reduce el margen entre elementos */
+            }
+        }
+
+        @media (max-width: 576px) {
+            nav a {
+                font-size: 14px; /* Ajusta el tamaño del texto en dispositivos más pequeños */
+            }
+        }
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .card-link:hover {
+            text-decoration: none;
+        }
+        .card-actions {
+            display: flex;
+            margin: -2%;
+            flex-direction: column-reverse;
+            flex-wrap: nowrap;
+            align-items: stretch;
+        }
+        .add-to-wishlist {
+            background-color: white;
+            color: black;
+            border: 2px solid black;
+            border-radius: 5px 5px 0px 0px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .add-to-wishlist:hover {
+            background-color: #b2eeeb;
+        }
+        .view-details {
+            text-align: center;
+            background-color: #f0f0f0;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .view-details:hover {
+            background-color: #e0e0e0;
+        }
+        .ojo{
+            display: flex;
+            margin: -2%;
+            flex-direction: column-reverse;
+            flex-wrap: nowrap;
+            align-items: stretch;
+        }
+         /* Add new styles for the modal */
+        .modal {
+            border: 2px solid #e582e7;
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 2px solid #e582e7;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #product-detail-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        #product-detail-title {
+            font-size: 24px;
+            margin-top: 15px;
+        }
+
+        #product-detail-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: black;
+            margin-top: 10px;
+        }
+
+        #product-detail-description {
+            margin-top: 15px;
+        }
+
+        #modal-add-to-cart {
+            background-color: #e582e7;
+            border: none;
+            color: black;
+            border-radius: 0px 0px 5px 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #modal-add-to-cart:hover {
+            background-color: #e3a3e5;
+        }
+        #modal-add-to-wishlist {
+            background-color: white;
+            color: black;
+            border: 2px solid black;
+            border-radius: 5px 5px 0px 0px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        #modal-add-to-wishlist:hover {
+            background-color: #b2eeeb;
+            border-color: #b2eeeb;
+        }
+    </style>
+<style type="text/css" id="operaUserStyle"></style><style type="text/css"></style></head>
 <body>
-    <iframe src="index.php" width="100%" height="600px" style="border:none;"></iframe>
-</body>
-</html>
+
+
+
+
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chérie Studio</title>
+    <link rel="stylesheet" href="./index_files/styles.css">
+    <link rel="stylesheet" href="./index_files/all(1).min.css">
+
+
+<header>
+<div>
+     <div class="top-banner">
+        <div class="container">
+            <div class="shipping-info">
+                <i class="fas fa-truck"></i>
+                <span>Envío gratis en compras de más de $499</span>
+            </div>
+            <div class="top-links">
+                <span>
+                    <i class="fab fa-whatsapp" style="color: #25D366; margin-right: 5px;"></i>
+                    Escribe a Whatsapp +507 6609-2208
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="main-header">
+        <div class="container">
+            <div class="logo">Chérie Studio</div>
+            <div class="search-bar">
+                <form action="http://localhost/Tienda%20online/api/resultados.php" method="GET"> <!-- Modificado para enviar datos a resultados.php -->
+                    <input type="text" name="buscar" placeholder="Buscar..." required="">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="header-icons">
+                                    <a href="http://localhost/Tienda%20online/api/perfil.php" class="icon-button"><i class="fas fa-user"></i></a>
+                                <a href="http://localhost/Tienda%20online/api/wishlist.php" class="icon-button"><i class="fas fa-heart"></i></a>
+                <a href="http://localhost/Tienda%20online/api/carrito.php" class="icon-button cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span> <!-- Muestra la cantidad total de productos en el carrito -->
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+   
+</header>
+
+
+
+ 
+<nav class="cat">
+        <div class="container2">
+            <ul>
+                                    <li>
+                        <a href="http://localhost/Tienda%20online/api/busqueda_categoria.php?categoria=1">
+                            Tecnología                        </a>
+                    </li>
+                                    <li>
+                        <a href="http://localhost/Tienda%20online/api/busqueda_categoria.php?categoria=2">
+                            Hogar                        </a>
+                    </li>
+                                    <li>
+                        <a href="http://localhost/Tienda%20online/api/busqueda_categoria.php?categoria=3">
+                            Ropa                        </a>
+                    </li>
+                                    <li>
+                        <a href="http://localhost/Tienda%20online/api/busqueda_categoria.php?categoria=4">
+                            Deportes                        </a>
+                    </li>
+                            </ul>
+        </div>
+    </nav><br><br>
+<section>
+    <div class="carousel">
+                    <img src="./index_files/smartphone-2048px-1013.jpg" alt="Smartphone tr">
+                    <img src="./index_files/b41a7fde-dcc1-11ec-9f1b-2e0c91dc8f24.jpg" alt="Televisor 4K">
+                    <img src="./index_files/sl18128p1_eqjqgow6oy3jqnho.jpg" alt="Aspiradora X100">
+                    <img src="./index_files/tshirt-mockup-white-blank-front-600nw-2275416399.jpg" alt="Camiseta Básica">
+                    <img src="./index_files/balon-futbol-sensor-dreamstime.jpg" alt="Pelota de Fútbol">
+            </div>
+</section>
+
+<div class="container3">
+    <div class="row">
+                    <div class="col s12 m4">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="./index_files/smartphone-2048px-1013.jpg" alt="Smartphone tr">
+                            <div class="ojo">
+                                <a href="http://localhost/Tienda%20online/api/Index.php#" class="view-details" title="Ver detalles" data-id="2">
+                                    <i class="fas fa-eye"></i> Ver más
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title">Smartphone tr</span>
+                            <p>599.99</p><br>
+                            <div class="card-actions">
+                                <button class="add-to-cart" title="Añadir al carrito" onclick="agregarAlCarrito(2)">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                
+                                <button class="add-to-wishlist" title="Añadir a la lista de deseos" onclick="agregarAListaDeseos(2)">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+                                <div class="col s12 m4">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="./index_files/b41a7fde-dcc1-11ec-9f1b-2e0c91dc8f24.jpg" alt="Televisor 4K">
+                            <div class="ojo">
+                                <a href="http://localhost/Tienda%20online/api/Index.php#" class="view-details" title="Ver detalles" data-id="3">
+                                    <i class="fas fa-eye"></i> Ver más
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title">Televisor 4K</span>
+                            <p>899.99</p><br>
+                            <div class="card-actions">
+                                <button class="add-to-cart" title="Añadir al carrito" onclick="agregarAlCarrito(3)">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                
+                                <button class="add-to-wishlist" title="Añadir a la lista de deseos" onclick="agregarAListaDeseos(3)">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+                                <div class="col s12 m4">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="./index_files/sl18128p1_eqjqgow6oy3jqnho.jpg" alt="Aspiradora X100">
+                            <div class="ojo">
+                                <a href="http://localhost/Tienda%20online/api/Index.php#" class="view-details" title="Ver detalles" data-id="4">
+                                    <i class="fas fa-eye"></i> Ver más
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title">Aspiradora X100</span>
+                            <p>150.00</p><br>
+                            <div class="card-actions">
+                                <button class="add-to-cart" title="Añadir al carrito" onclick="agregarAlCarrito(4)">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                
+                                <button class="add-to-wishlist" title="Añadir a la lista de deseos" onclick="agregarAListaDeseos(4)">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+                                <div class="col s12 m4">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="./index_files/tshirt-mockup-white-blank-front-600nw-2275416399.jpg" alt="Camiseta Básica">
+                            <div class="ojo">
+                                <a href="http://localhost/Tienda%20online/api/Index.php#" class="view-details" title="Ver detalles" data-id="5">
+                                    <i class="fas fa-eye"></i> Ver más
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title">Camiseta Básica</span>
+                            <p>10.99</p><br>
+                            <div class="card-actions">
+                                <button class="add-to-cart" title="Añadir al carrito" onclick="agregarAlCarrito(5)">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                
+                                <button class="add-to-wishlist" title="Añadir a la lista de deseos" onclick="agregarAListaDeseos(5)">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+                            </div><div class="row">
+                                <div class="col s12 m4">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="./index_files/balon-futbol-sensor-dreamstime.jpg" alt="Pelota de Fútbol">
+                            <div class="ojo">
+                                <a href="http://localhost/Tienda%20online/api/Index.php#" class="view-details" title="Ver detalles" data-id="6">
+                                    <i class="fas fa-eye"></i> Ver más
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title">Pelota de Fútbol</span>
+                            <p>25.00</p><br>
+                            <div class="card-actions">
+                                <button class="add-to-cart" title="Añadir al carrito" onclick="agregarAlCarrito(6)">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                
+                                <button class="add-to-wishlist" title="Añadir a la lista de deseos" onclick="agregarAListaDeseos(6)">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+                        </div>
+</div>
+
+<!-- Modal for product details -->
+<div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <img id="product-detail-image" src="http://localhost/Tienda%20online/api/Index.php" alt="Product Image">
+            <h2 id="product-detail-title"></h2>
+            <p id="product-detail-price"></p>
+            <p id="product-detail-description"></p>
+            <button id="modal-add-to-wishlist">
+                <i class="fas fa-heart"></i>
+            </button>
+            <button id="modal-add-to-cart">
+                <i class="fas fa-shopping-cart"></i>
+            </button>
+        </div>
+</div>
+
+<!-- Materialize JS -->
+<script src="./index_files/materialize.min.js.download"></script>
+<script>
+    // Get the modal
+    var modal = document.getElementById("product-modal");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Function to fetch and display product details
+    function showProductDetails(productId) {
+        fetch(`get_product_details.php?id=${productId}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("product-detail-image").src = data.imagen_producto;
+                document.getElementById("product-detail-title").textContent = data.nombre_producto;
+                document.getElementById("product-detail-price").textContent = `Precio: $${data.precio}`;
+                document.getElementById("product-detail-description").textContent = data.descripcion;
+                document.getElementById("modal-add-to-cart").onclick = function() {
+                    agregarAlCarrito(data.id_producto);
+                };
+                modal.style.display = "block";
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Add click event listeners to all "Ver más" links
+    document.querySelectorAll('.view-details').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const productId = e.currentTarget.getAttribute('data-id');
+            showProductDetails(productId);
+        });
+    });
+
+    function agregarAlCarrito(idProducto) {
+        fetch('agregar_al_carrito.php?id=' + idProducto)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.querySelector('.cart-count').innerText = data.cantidad;
+                } else {
+                    alert('Error al añadir al carrito');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+    function agregarAListaDeseos(idProducto) {
+            fetch('agregar_a_lista_deseos.php?id=' + idProducto)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Producto añadido a la lista de deseos');
+                    } else {
+                        alert('Error al añadir a la lista de deseos');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+</script>
+
+
+
+</body></html>

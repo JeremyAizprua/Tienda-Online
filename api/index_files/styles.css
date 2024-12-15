@@ -1,0 +1,239 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Top Banner */
+.top-banner {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.top-banner .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.shipping-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.top-links {
+    display: flex;
+    gap: 20px;
+}
+
+.top-links a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Main Header */
+.main-header {
+    padding: 20px 0;
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.search-bar {
+    display: flex;
+    max-width: 500px;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+}
+.form{
+    display: flex;
+}
+.search-bar input {
+
+    width: 28rem;
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+}
+
+.search-bar button {
+    padding: 10px 15px;
+    background-color: #e582e7;
+    color: #fff;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    margin-left: -10px;
+}
+
+.header-icons {
+    display: flex;
+    gap: 20px;
+}
+
+.icon-button {
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.cart {
+    position: relative;
+}
+
+.cart-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #e582e7;
+    color: #fff;
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Navigation */
+nav {
+    border-top: 1px solid #eee;
+    padding: 10px 0;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+}
+
+nav ul li a {
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+nav ul li a:hover {
+    color: #e582e7;
+}
+
+/* Welcome Banner */
+.welcome-banner {
+    background-color: #e582e7;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .top-banner {
+        font-size: 12px;
+        padding: 8px 0;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .search-bar {
+        margin: 10px auto; /* Changed from 10px 0 to 10px auto for centering */
+    }
+
+    .search-bar input {
+        width: calc(100% - 64px); /* Adjusted to account for button width */
+        max-width: 200px; /* Limit the width of the input */
+    }
+
+    .search-bar button {
+        width: 60px; /* Fixed width for consistency */
+        margin-top: 0;
+    }
+}
+/* Estilos responsivos */
+@media (max-width: 773px) {
+    .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .logo {
+        font-size: 18px;
+    }
+
+    .search-bar {
+        margin: 10px 0;
+        width: 100%;
+        display: flex; /* Asegura que el input y el botón estén alineados */
+        flex-direction: row; /* Asegura que estén uno al lado del otro */
+    }
+
+    .search-bar input {
+        width: 100%; /* Ocupa todo el espacio disponible */
+        margin-right: 4px; /* Agrega un pequeño margen entre el input y el botón */
+    }
+
+    .search-bar button {
+        width: auto; /* Evita que el botón ocupe demasiado espacio */
+        margin-left: -48px;
+    }
+
+    .header-icons {
+        justify-content: space-between;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-banner {
+        font-size: 12px;
+        padding: 8px 0;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .search-bar {
+        flex-direction: row;
+        justify-content: center; 
+        align-items: center; 
+        width: 100%; 
+    }
+
+    .search-bar input {
+        width: calc(100% - 21px);
+        max-width: 200px;
+    }
+
+    .search-bar button {
+        width: 60px;
+        margin-top: 0;
+    }
+}
