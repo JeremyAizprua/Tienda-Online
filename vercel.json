@@ -2,14 +2,18 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/index.php",
-      "use": "@vercel/php"
+      "src": "index.php",
+      "use": "@vercel/php",
+      "config": {
+        "runtime": "php",
+        "runtimeVersion": "8.1"
+      }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/api/index.php"
+      "dest": "api/index.php"
     }
   ]
 }
