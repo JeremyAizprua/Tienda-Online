@@ -51,6 +51,7 @@ $nuevoOrden = ($orden === 'asc') ? 'desc' : 'asc';
         nav .brand-logo {
             font-weight: bold;
             padding-left: 15px;
+            color: black;
         }
         .user-info {
             background-color: #e3a3e5;
@@ -68,11 +69,13 @@ $nuevoOrden = ($orden === 'asc') ? 'desc' : 'asc';
         }
         .user-actions a {
             margin: 5px;
+            color: black;
         }
         h2 {
             color: #e3a3e5;
             font-weight: 300;
             margin-bottom: 30px;
+            color: black;
         }
         .card {
             border-radius: 8px;
@@ -104,6 +107,7 @@ $nuevoOrden = ($orden === 'asc') ? 'desc' : 'asc';
         .btn {
             background-color: #e3a3e5;
             margin-right: 10px;
+            color: black;
         }
         .btn:hover {
             background-color: #e582e7;
@@ -125,6 +129,16 @@ $nuevoOrden = ($orden === 'asc') ? 'desc' : 'asc';
             nav .brand-logo {
                 font-size: 1.3rem;
             }
+        }
+        nav ul a {
+            -webkit-transition: background-color .3s;
+            transition: background-color .3s;
+            font-size: 1rem;
+            color: #fff;
+            display: block;
+            padding: 0 15px;
+            cursor: pointer;
+            color: black;
         }
     </style>
 </head>

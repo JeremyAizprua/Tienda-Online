@@ -94,8 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     .card-horizontal img {
-        width: 150px; /* Ancho de la imagen */
-        height: 150px; /* Alto de la imagen */
+        width: 210px; /* Ancho de la imagen */
+        height: 200px; /* Alto de la imagen */
         object-fit: cover;
         border-radius: 10px;
     }
@@ -113,6 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         color: #e3a3e5;
         font-weight: bold;
         margin-bottom: 10px;
+        color: black;
     }
 
     .card-horizontal p {
@@ -236,7 +237,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php include 'header.php'; ?>
 
 <div class="container">
-    <a href="Index.php" class="volver-icono">
+    <a href="javascript:history.back()" class="volver-icono">
         <i class="fas fa-arrow-left"></i>
     </a>
     <h5>Productos en el carrito:</h5>

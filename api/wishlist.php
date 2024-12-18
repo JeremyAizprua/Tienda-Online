@@ -100,7 +100,7 @@ $stmt->close();
         }
         .btn-cart {
             background-color: #e582e7;
-            color: white;
+            color: black;
         }
         .btn-cart:hover {
             background-color: #e3a3e5;
@@ -119,13 +119,51 @@ $stmt->close();
         .volver-icono:hover {
             color: #e582e7;
         }
+        .add-to-wishlist {
+            background-color: white;
+            color: black;
+            border: 2px solid black;
+            border-radius: 5px 5px 5px 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .add-to-wishlist:hover {
+            background-color: #b2eeeb;
+        }
+        .view-details {
+            text-align: center;
+            background-color: #f0f0f0;
+            color: black;
+            border: 2px solid black;
+            border-radius: 5px 5px 5px 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+
+        }
+
+        .view-details:hover {
+            background-color: #e0e0e0;
+        }
+        .ojo {
+            display: flex;
+            margin: 0;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-items: stretch;
+        }
+
+        .ojo form {
+            width: 100%;
+        }
     </style>
 </head>
 <body>
     <?php include 'header.php'; ?>
 
     <div class="container">
-    <a href="Index.php" class="volver-icono">
+    <a href="javascript:history.back()" class="volver-icono">
         <i class="fas fa-arrow-left"></i>
     </a>
         <h1>Mi Lista de Deseos</h1>
@@ -137,11 +175,22 @@ $stmt->close();
                         <h2 class="wishlist-item-title"><?php echo htmlspecialchars($producto['nombre_producto']); ?></h2>
                         <p class="wishlist-item-price">$<?php echo number_format($producto['precio'], 2); ?></p>
                         <div class="wishlist-item-actions">
-                            <button class="btn btn-remove" onclick="quitarDeListaDeseos(<?php echo $producto['id_producto']; ?>)">
-                                <i class="fas fa-trash"></i>
+                            <div class="ojo">
+                                <form action="producto_detalle.php" method="post">
+                                    <input type="hidden" name="id" value="<?php echo $producto['id_producto']; ?>">
+                                    <button type="submit" class="view-details" title="Ver detalles">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            <button class="add-to-wishlist" title="Añadir a la lista de deseos" onclick="agregarAListaDeseos(<?php echo $producto['id_producto']; ?>)">
+                                <i class="fas fa-heart"></i>
                             </button>
                             <button class="btn btn-cart" onclick="agregarAlCarrito(<?php echo $producto['id_producto']; ?>)">
                                 <i class="fas fa-shopping-cart"></i>
+                            </button>
+                            <button class="btn btn-remove" onclick="quitarDeListaDeseos(<?php echo $producto['id_producto']; ?>)">
+                                <i class="fas fa-trash"></i>
                             </button>
                         </div>
                     </div>
@@ -174,6 +223,18 @@ $stmt->close();
                         alert('Producto añadido al carrito');
                     } else {
                         alert('Error al añadir al carrito');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+        function agregarAListaDeseos(idProducto) {
+            fetch('agregar_a_lista_deseos.php?id=' + idProducto)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Producto añadido a la lista de deseos');
+                    } else {
+                        alert('Error al añadir a la lista de deseos');
                     }
                 })
                 .catch(error => console.error('Error:', error));

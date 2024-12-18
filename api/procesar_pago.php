@@ -119,6 +119,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 color: #555;
                 font-size: 14px;
             }
+            /* Responsive styles */
+            @media (max-width: 768px) {
+                .card {
+                    flex: 0 1 calc(50% - 5px);
+                }
+            }
+
+            @media (max-width: 480px) {
+                .card {
+                    flex: 0 1 100%;
+                }
+            }
         </style>
     </head>
     <body>

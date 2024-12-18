@@ -296,7 +296,7 @@ while ($producto = $resultado->fetch_assoc()) {
 <?php include 'header.php'; ?>
 
 <div class="container3">
-    <h1>Resultados de búsqueda:</h1>
+    <h1>Resultados de búsqueda de: <?php echo htmlspecialchars($terminoBusqueda); ?></h1>
     <a href="javascript:history.back()" class="volver-icon">
         <i class="fas fa-arrow-left"></i>
     </a>

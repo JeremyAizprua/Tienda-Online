@@ -9,7 +9,7 @@ $db = $database->obtenerConexion();
 $productosModel = new Productos($db);
 $categoriaModel = new Categoria($db);
 
-$id_producto = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$id_producto = isset($_POST['id']) ? intval($_POST['id']) : 0;
 $producto = $productosModel->obtenerProductoPorId($id_producto);
 
 if (!$producto) {
@@ -80,7 +80,7 @@ $productos_relacionados = $productosModel->obtenerProductosRelacionados($product
         }
         .btn {
             background-color: #e582e7;
-            color: white;
+            color: black;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
@@ -167,6 +167,31 @@ $productos_relacionados = $productosModel->obtenerProductosRelacionados($product
                 max-width: 100%;
             }
         }
+        .carousel-item form {
+            width: 100%;
+            height: 100%;
+        }
+        .carousel-item button {
+            width: 100%;
+            height: 100%;
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            text-align: left;
+        }
+        .add-to-wishlist {
+            background-color: white;
+            color: black;
+            border: 2px solid black;
+            border-radius: 5px 5px 5px 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .add-to-wishlist:hover {
+            background-color: #b2eeeb;
+        }
     </style>
 </head>
 <body>
@@ -184,9 +209,12 @@ $productos_relacionados = $productosModel->obtenerProductosRelacionados($product
                 <h1 class="product-title"><?php echo htmlspecialchars($producto['nombre_producto']); ?></h1>
                 <p class="product-description"><?php echo htmlspecialchars($producto['descripcion']); ?></p>
                 <p class="product-price">Precio: $<?php echo number_format($producto['precio'], 2); ?></p>
-                <button class="btn" onclick="event.stopPropagation(); agregarAlCarrito(<?php echo $producto['id_producto']; ?>)">
-                    Añadir al carrito
-                </button>
+                    <button class="btn" title="Añadir al carrito" onclick="agregarAlCarrito(<?php echo $producto['id_producto']; ?>)">
+                        <i class="fas fa-shopping-cart"></i>
+                    </button>
+                    <button class="add-to-wishlist" title="Añadir a la lista de deseos" onclick="agregarAListaDeseos(<?php echo $producto['id_producto']; ?>)">
+                        <i class="fas fa-heart"></i>
+                    </button>
             </div>
         </div>
         <div class="related-products">
@@ -194,13 +222,16 @@ $productos_relacionados = $productosModel->obtenerProductosRelacionados($product
             <div class="carousel">
                 <?php foreach ($productos_relacionados as $producto_relacionado): ?>
                     <div class="carousel-item">
-                        <a href="producto_detalle.php?id=<?php echo $producto_relacionado['id_producto']; ?>">
-                            <img src="<?php echo $producto_relacionado['imagen_producto']; ?>" alt="<?php echo htmlspecialchars($producto_relacionado['nombre_producto']); ?>">
-                            <div class="carousel-item-content">
-                                <div class="carousel-item-title"><?php echo htmlspecialchars($producto_relacionado['nombre_producto']); ?></div>
-                                <div class="carousel-item-price">$<?php echo number_format($producto_relacionado['precio'], 2); ?></div>
-                            </div>
-                        </a>
+                        <form action="producto_detalle.php" method="post">
+                            <input type="hidden" name="id" value="<?php echo $producto_relacionado['id_producto']; ?>">
+                            <button type="submit">
+                                <img src="<?php echo $producto_relacionado['imagen_producto']; ?>" alt="<?php echo htmlspecialchars($producto_relacionado['nombre_producto']); ?>">
+                                <div class="carousel-item-content">
+                                    <div class="carousel-item-title"><?php echo htmlspecialchars($producto_relacionado['nombre_producto']); ?></div>
+                                    <div class="carousel-item-price">$<?php echo number_format($producto_relacionado['precio'], 2); ?></div>
+                                </div>
+                            </button>
+                        </form>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -221,6 +252,19 @@ $productos_relacionados = $productosModel->obtenerProductosRelacionados($product
                 })
                 .catch(error => console.error('Error:', error));
         }
+        function agregarAListaDeseos(idProducto) {
+        fetch('agregar_a_lista_deseos.php?id=' + idProducto)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Producto añadido a la lista de deseos.');
+                } else {
+                    alert('Error al añadir a la lista de deseos, debe iniciar sesion.');
+                    window.location.href = 'login.php';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
     </script>
 </body>
 </html>

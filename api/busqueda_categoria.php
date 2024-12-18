@@ -2,12 +2,39 @@
 session_start(); // Inicia la sesión
 require_once('../Conexion/Conexion.php');
 require_once '../Clases/Productos.php';
+require_once('../Clases/Categoria.php');
 
 // Crear conexión a la base de datos
 $database = new Conexion();
 $db = $database->obtenerConexion();
 $productosModel = new Productos($db);
+$categoriaModel = new Categoria($db);
+$categorias = $categoriaModel->obtenerCategorias(); // Fetch categories
 
+// Verificar si se ha seleccionado una categoría
+$categoriaSeleccionada = isset($_GET['categoria']) ? $_GET['categoria'] : null;
+
+// Obtener productos según la categoría seleccionada
+if ($categoriaSeleccionada) {
+    $query = "SELECT * FROM productos WHERE id_categoria = ?";
+    if ($stmt = $db->prepare($query)) {
+        $stmt->bind_param("i", $categoriaSeleccionada);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        $productos = []; // Inicializar el array de productos filtrados
+
+        while ($fila = $resultado->fetch_assoc()) {
+            $productos[] = $fila; // Solo agregar los productos filtrados
+        }
+
+        $stmt->close();
+    } else {
+        echo "Error al preparar la consulta: " . $db->error;
+    }
+} else {
+    // Obtener todos los productos si no se ha seleccionado una categoría
+    $productos = $productosModel->obtenerTodosLosProductos();
+}
 // Verificar si se recibió una categoría
 $categoriaId = isset($_GET['categoria']) ? intval($_GET['categoria']) : null;
 
@@ -286,11 +313,28 @@ if ($categoriaId) {
                 max-width: 25%;
             }
         }
+        .container2 {
+            max-width: 60%;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
     </style>
 </head>
 <body>
 <?php include 'header.php'; ?>
-
+<nav class="cat">
+        <div class="container2">
+            <ul>
+                <?php foreach ($categorias as $categoria): ?>
+                    <li>
+                        <a href="busqueda_categoria.php?categoria=<?php echo $categoria['id_categoria']; ?>">
+                            <?php echo htmlspecialchars($categoria['nombre_categoria']); ?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+</nav><br><br>
 <div class="container3">
     <h1>Categoría: <?php echo htmlspecialchars($nombreCategoria); ?></h1>
     <a href="javascript:history.back()" class="volver-icon">

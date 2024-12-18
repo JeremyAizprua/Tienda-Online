@@ -305,30 +305,24 @@ if ($categoriaSeleccionada) {
             background-color: #f0f0f0;
             color: black;
             border: none;
-            border-radius: 0 0 0px 0px;
+            border-radius: 5px;
             padding: 10px 15px;
             cursor: pointer;
             transition: background-color 0.3s;
             text-decoration: none;
-            display: block;
-            width: 100%;
+            display: inline-block;
             margin-top: 5px;
         }
 
         .view-details:hover {
             background-color: #e0e0e0;
         }
-
-        .ojo {
+        .ojo{
             display: flex;
-            margin: 0;
-            flex-direction: column;
+            margin: -2%;
+            flex-direction: column-reverse;
             flex-wrap: nowrap;
             align-items: stretch;
-        }
-
-        .ojo form {
-            width: 100%;
         }
          /* Add new styles for the modal */
         .modal {
@@ -458,12 +452,9 @@ if ($categoriaSeleccionada) {
                         <div class="card-image">
                             <img src="<?php echo $producto['imagen_producto']; ?>" alt="<?php echo htmlspecialchars($producto['nombre_producto']); ?>">
                             <div class="ojo">
-                                <form action="producto_detalle.php" method="post">
-                                    <input type="hidden" name="id" value="<?php echo $producto['id_producto']; ?>">
-                                    <button type="submit" class="view-details" title="Ver detalles">
-                                        <i class="fas fa-eye"></i> Ver más
-                                    </button>
-                                </form>
+                                <a href="#" class="view-details" title="Ver detalles" data-id="<?php echo $producto['id_producto']; ?>">
+                                    <i class="fas fa-eye"></i> Ver más
+                                </a>
                             </div>
                         </div>
                         <div class="card-content">
@@ -488,9 +479,70 @@ if ($categoriaSeleccionada) {
     </div>
 </div>
 
+<!-- Modal for product details -->
+<div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="product-detail-image" src="" alt="Product Image">
+            <h2 id="product-detail-title"></h2>
+            <p id="product-detail-price"></p>
+            <p id="product-detail-description"></p>
+            <button id="modal-add-to-wishlist">
+                <i class="fas fa-heart"></i>
+            </button>
+            <button id="modal-add-to-cart">
+                <i class="fas fa-shopping-cart"></i>
+            </button>
+        </div>
+</div>
+
 <!-- Materialize JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
+    // Get the modal
+    var modal = document.getElementById("product-modal");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Function to fetch and display product details
+    function showProductDetails(productId) {
+        fetch(`get_product_details.php?id=${productId}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("product-detail-image").src = data.imagen_producto;
+                document.getElementById("product-detail-title").textContent = data.nombre_producto;
+                document.getElementById("product-detail-price").textContent = `Precio: $${data.precio}`;
+                document.getElementById("product-detail-description").textContent = data.descripcion;
+                document.getElementById("modal-add-to-cart").onclick = function() {
+                    agregarAlCarrito(data.id_producto);
+                };
+                modal.style.display = "block";
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Add click event listeners to all "Ver más" links
+    document.querySelectorAll('.view-details').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const productId = e.currentTarget.getAttribute('data-id');
+            showProductDetails(productId);
+        });
+    });
+
     function agregarAlCarrito(idProducto) {
         fetch('agregar_al_carrito.php?id=' + idProducto)
             .then(response => response.json())
@@ -504,19 +556,17 @@ if ($categoriaSeleccionada) {
             .catch(error => console.error('Error:', error));
     }
     function agregarAListaDeseos(idProducto) {
-        fetch('agregar_a_lista_deseos.php?id=' + idProducto)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Producto añadido a la lista de deseos.');
-                } else {
-                    alert('Error al añadir a la lista de deseos, debe iniciar sesion.');
-                    window.location.href = 'login.php';
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    }
+            fetch('agregar_a_lista_deseos.php?id=' + idProducto)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Producto añadido a la lista de deseos');
+                    } else {
+                        alert('Error al añadir a la lista de deseos');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
 </script>
 
 </html>
-
