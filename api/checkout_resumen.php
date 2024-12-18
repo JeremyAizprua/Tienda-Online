@@ -205,7 +205,7 @@ $total = 0;
         };
         button.style.display = 'none';
         mensaje.style.color ='Green';
-        mensaje.textContent = 'Pedido confirmado, espere un momento...';
+        mensaje.textContent = 'Confirmando pedido, espere un momento...';
         
         try {
             const response = await fetch('procesar_pago.php', {
