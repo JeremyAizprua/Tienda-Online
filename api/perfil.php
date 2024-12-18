@@ -169,6 +169,7 @@ $nuevoOrden = ($orden === 'asc') ? 'desc' : 'asc';
                 <?php if ($isAdmin): ?>
                     <a href="pedidos.php" class="btn waves-effect waves-light">Ver Pedidos Recibidos</a>
                     <a href="gestionar_productos.php" class="btn waves-effect waves-light">Gestionar Productos</a>
+                    <a href="gestionar_categorias.php" class="btn waves-effect waves-light">Gestionar Categorías</a> <!-- Nuevo botón -->
                 <?php endif; ?>
             </div>
         </div>
