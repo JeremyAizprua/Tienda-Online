@@ -126,6 +126,8 @@ body {
 nav {
     border-top: 1px solid #eee;
     padding: 10px 0;
+    background-color: #000;
+    margin: 10px 0px;
 }
 
 nav ul {
@@ -135,13 +137,21 @@ nav ul {
 }
 
 nav ul li a {
-    color: #333;
+    color: white;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 26px;
+    margin: 5px -1px;
+    padding: 7px 10px;
+}
+nav ul li a:hover {
+    color: black;
 }
 
-nav ul li a:hover {
-    color: #e582e7;
+nav ul li:hover {
+    background-color:#e582e7 ;
+    border-radius: 5px;
+        
+    
 }
 
 /* Welcome Banner */
