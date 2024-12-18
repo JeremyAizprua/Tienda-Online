@@ -81,7 +81,7 @@ $productos_relacionados = $productosModel->obtenerProductosRelacionados($product
         .btn {
             background-color: #e582e7;
             color: black;
-            padding: 10px 20px;
+            padding: 10px 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;

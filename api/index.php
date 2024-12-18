@@ -47,7 +47,7 @@ if ($categoriaSeleccionada) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chérie Studio - Productos</title>  
+    <title>Chérie Studio | Productos</title>  
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -436,7 +436,7 @@ if ($categoriaSeleccionada) {
             <img src="<?php echo $producto['imagen_producto']; ?>" alt="<?php echo htmlspecialchars($producto['nombre_producto']); ?>">
         <?php endforeach; ?>
     </div>
-</section>
+</section><br>
 <nav class="cat">
         <div class="container2">
             <ul>
@@ -449,7 +449,7 @@ if ($categoriaSeleccionada) {
                 <?php endforeach; ?>
             </ul>
         </div>
-</nav><br><br>
+</nav><br>
 <div class="container3">
     <div class="row">
         <?php foreach ($productos as $index => $producto): ?>

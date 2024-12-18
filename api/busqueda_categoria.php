@@ -318,6 +318,17 @@ if ($categoriaId) {
             margin: 0 auto;
             padding: 0 15px;
         }
+        nav {
+            background: transparent; /* Hacer el fondo del nav transparente */
+            padding: 0px 0; /* Espaciado interno */
+            border: none; /* Eliminar bordes */
+            box-shadow: none; /* Eliminar sombra */
+        }
+        nav a {
+            color: #e3a3e5; /* Color de los enlaces */
+            text-decoration: none; /* Sin subrayado */
+            font-weight: bold; /* Texto en negrita */
+        }
     </style>
 </head>
 <body>
@@ -334,7 +345,7 @@ if ($categoriaId) {
                 <?php endforeach; ?>
             </ul>
         </div>
-</nav><br><br>
+</nav><br>
 <div class="container3">
     <h1>Categoría: <?php echo htmlspecialchars($nombreCategoria); ?></h1>
     <a href="javascript:history.back()" class="volver-icon">
